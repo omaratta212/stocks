@@ -6,12 +6,20 @@ import ThemeSwitcher from "./ThemeSwitcher.tsx";
 
 const pages = [
   {
-    name: "Home",
+    name: "Stocks",
     path: "/",
   },
   {
-    name: "About",
-    path: "/about",
+    name: "Crypto",
+    path: "/crypto",
+  },
+  {
+    name: "ETFs",
+    path: "/etfs",
+  },
+  {
+    name: "Forex",
+    path: "/forex",
   },
 ];
 const Navbar = () => {
@@ -19,9 +27,9 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="top-0 z-10 flex items-center justify-between border-b border-slate-300 bg-slate-200 px-6 py-4 text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200">
+      <div className="top-0 z-10 flex items-center justify-between border-b mb-5 border-slate-300 bg-slate-200 py-4 text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200">
         <div className="flex items-center">
-          <Link to="/" className={`font-lab text-5xl font-bold`}>
+          <Link to="/" className={`text-2xl font-bold`}>
             Stocker
           </Link>
           <nav className="mx-4 hidden md:flex">

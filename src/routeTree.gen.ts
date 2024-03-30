@@ -13,23 +13,41 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as CompanyIdImport } from './routes/company/$id'
 
 // Create Virtual Routes
 
-const AboutLazyImport = createFileRoute('/about')()
+const ForexLazyImport = createFileRoute('/forex')()
+const EtfsLazyImport = createFileRoute('/etfs')()
+const CryptoLazyImport = createFileRoute('/crypto')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
-const AboutLazyRoute = AboutLazyImport.update({
-  path: '/about',
+const ForexLazyRoute = ForexLazyImport.update({
+  path: '/forex',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/forex.lazy').then((d) => d.Route))
+
+const EtfsLazyRoute = EtfsLazyImport.update({
+  path: '/etfs',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/etfs.lazy').then((d) => d.Route))
+
+const CryptoLazyRoute = CryptoLazyImport.update({
+  path: '/crypto',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/crypto.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const CompanyIdRoute = CompanyIdImport.update({
+  path: '/company/$id',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -39,8 +57,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      preLoaderRoute: typeof AboutLazyImport
+    '/crypto': {
+      preLoaderRoute: typeof CryptoLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/etfs': {
+      preLoaderRoute: typeof EtfsLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/forex': {
+      preLoaderRoute: typeof ForexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/company/$id': {
+      preLoaderRoute: typeof CompanyIdImport
       parentRoute: typeof rootRoute
     }
   }
@@ -48,6 +78,12 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexLazyRoute, AboutLazyRoute])
+export const routeTree = rootRoute.addChildren([
+  IndexLazyRoute,
+  CryptoLazyRoute,
+  EtfsLazyRoute,
+  ForexLazyRoute,
+  CompanyIdRoute,
+])
 
 /* prettier-ignore-end */
